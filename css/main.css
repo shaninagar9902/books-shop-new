@@ -1,0 +1,369 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    background-image: url("/book-shop/img/book.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overscroll-behavior: none;
+    background: transparent;
+    padding: 2rem 1rem;
+    color: #333;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2rem auto;
+}
+
+h1 {
+    margin: 0;
+    color: #4a4a4a;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.actions-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.filter-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+}
+
+.theTable,
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.theTable {
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.table-container {
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    min-width: 500px;
+    table-layout: auto;
+}
+
+thead {
+    background: linear-gradient(45deg, #764ba2, #667eea);
+    color: white;
+}
+
+th,
+td {
+    padding: 1rem;
+    text-align: inherit;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+}
+
+th.sortable,
+.filter-price-range {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+th.sortable:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+tbody tr:hover {
+    background-color: #f1f4ff;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    margin-right: 0;
+    font-size: 0.85rem;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+    color: white;
+    white-space: nowrap;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.add-book-btn {
+    background-color: #330ee8;
+    font-size: 1rem;
+}
+
+.btn-read {
+    background-color: #4CAF50;
+}
+
+.btn-update {
+    background-color: #FF9800;
+}
+
+.btn-remove {
+    background-color: #F44336;
+}
+
+nav.paging {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    direction: ltr !important;
+}
+
+.page-idx {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+nav.paging button {
+    background-color: var(--stone);
+    margin-block-start: 15px;
+    border: none;
+    border-radius: 7px;
+    margin: 0;
+}
+
+nav.paging button:hover {
+    opacity: 0.7;
+}
+
+button.disabled {
+    opacity: 0.5;
+    filter: blur(0.6px)
+}
+
+/* Languages */
+
+body.rtl {
+    direction: rtl;
+}
+
+.language {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: white;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Modal Styles */
+
+.modal-actions {
+    display: flex;
+    flex: 1;
+    gap: 5px;
+}
+
+.modal-read,
+.modal-update,
+.modal-add {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    width: 90%;
+    max-width: 400px;
+    transition: all 0.3s ease;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.backdrop {
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 10;
+    transition: opacity 0.3s ease;
+}
+
+.modal-read.open,
+.modal-update.open,
+.modal-add.open,
+.backdrop.open {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-add h3,
+.modal-read h3,
+.modal-update h3 {
+    margin-top: 0;
+    color: #764ba2;
+}
+
+.modal-add button,
+.modal-read button,
+.modal-update button {
+    background-color: #667eea;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-weight: bold;
+}
+
+/* Toast Messages */
+.user-msg {
+    position: fixed;
+    bottom: -100px;
+    right: 20px;
+    background-color: #333;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    transition: bottom 0.3s ease-in-out;
+    z-index: 999;
+}
+
+.user-msg.open {
+    bottom: 20px;
+}
+
+td:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-start;
+    min-width: 180px;
+}
+
+.rate-container {
+    margin: 20px 0;
+    text-align: center;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+.rate-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.rate-controls button {
+    background-color: #764ba2;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 1.2rem;
+}
+
+.rate-val {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    min-width: 30px;
+}
+
+footer {
+    margin-top: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    .actions-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    th,
+    td {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    td:last-child {
+        min-width: 120px;
+    }
+
+    th,
+    td {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
+}

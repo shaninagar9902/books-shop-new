@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="img/icon.svg">
+    <title> Books Shop</title>
+</head>
+
+<body onload="onInit()">
+    <div class="backdrop" onclick="onCloseModal()"></div>
+    <main class="main-container">
+        <header class="app-header">
+            <h1 data-trans="title">Welcome to my books shop!</h1>
+            <div class="actions-container">
+                <button class="add-book-btn" onclick="onAddBook()" data-trans="create-btn">Create new book</button>
+                <label class="filter-container">
+                    <span data-trans="price">Min price</span>: <span id="price-val">0</span>$
+                    <input type="range" min="0" max="100" value="0" class="filter-price-range"
+                        oninput="document.getElementById('price-val').innerText = this.value"
+                        onchange="onSetFilterBy({minPrice: +this.value})" />
+                </label>
+                <select class="language" onchange="onSetLang(this.value)">
+                    <option value="en">English</option>
+                    <option value="he">עברית</option>
+                    <option value="es">Spanish</option>
+                </select>
+            </div>
+        </header>
+        <section class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th data-trans="title-btn" class="sortable" onclick="onSetSortBy('Title')">Title ↕</th>
+                        <th data-trans="price-btn" class="sortable" onclick="onSetSortBy('Price')">Price ↕</th>
+                        <th data-trans="actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body"></tbody>
+            </table>
+        </section>
+        <nav class="paging">
+            <button class="prev" title="Previous page" onclick="onChangePage(-1)">⬅️</button>
+            <span class="page-idx"></span>
+            <button class="next" title="Next page" onclick="onChangePage(1)">➡️</button>
+        </nav>
+    </main>
+    <div class="modal-read">
+        <h3>Book Title</h3>
+        <h4><span data-trans="book-price">Price</span>:
+            <span class="book-price-value"></span>$
+        </h4>
+        <p>Book description</p>
+        <div class="rate-container">
+            <p data-trans="rate">Rate this book:</p>
+            <div class="rate-controls">
+                <button onclick="onUpdateRate(-1)">-</button>
+                <span class="rate-val">0</span>
+                <button onclick="onUpdateRate(1)">+</button>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button data-trans="save-btn" onclick="onSaveBook()">Save ✅</button>
+            <button data-trans="close-btn" onclick="onCloseModal()">Close ❌</button>
+        </div>
+    </div>
+    <div class="modal-update">
+        <h3>Book Title</h3>
+        <label class="modal">
+            <span data-trans="new-price">New price? </span>
+            <input type="number" name="price">
+        </label>
+        <div class="modal-actions">
+            <button data-trans="save-btn" onclick="onSaveBook()">Save ✅</button>
+            <button data-trans="close-btn" onclick="onCloseModal()">Close ❌</button>
+        </div>
+    </div>
+    <div class="modal-add">
+        <h3 data-trans="create-btn">Create new book</h3>
+        <label class="modal">
+            <span data-trans="what-title">What is the title of the new book? </span>
+            <input type="text" name="title" required>
+            <span data-trans="what-price">What is the price of the new book? </span>
+            <input type="number" name="price" required min="1">
+        </label>
+        <div class="modal-actions">
+            <button data-trans="save-btn" onclick="onSaveBook()">Save ✅</button>
+            <button data-trans="close-btn" onclick="onCloseModal()">Close ❌</button>
+        </div>
+    </div>
+    <div class="user-msg"></div>
+    <footer data-trans="footer">This site was built by &copy;shaniki with love &hearts;</footer>
+    <script src="js/hammer.js"></script>
+    <script src="js/services/util.service.js"></script>
+    <script src="js/services/i18n.service.js"></script>
+    <script src="js/services/book.service.js"></script>
+    <script src="js/book.controller.js"></script>
+</body>
+
+</html>
